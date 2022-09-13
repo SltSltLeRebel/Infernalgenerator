@@ -1,4 +1,5 @@
 import Alphabet from "./Alphabet.js";
+import {dowloadAsMarkdown} from "./Dowload.js"
 console.log("le script fonctionne let's go!!!");
 let alphabet = new Alphabet();
 const textToTranslate = document.getElementById("textToTranslate");
@@ -89,11 +90,17 @@ function downloadObjectAsJson(exportObj, exportName){
     downloadAnchorNode.remove();
   }
   function dowloadGeneratedText(event){
+    let str = document.getElementById("Titre").value;
+   
     event.preventDefault();
     const object = {
         randomlyGeneratedAlphabet : randomAlphabet.value,
         textToTranslate : textToTranslate.value,
         translatedText : translatedText.value
     }
-    downloadObjectAsJson(object , object.randomlyGeneratedAlphabet)
+    if(str === undefined || str === null || str === "" ){
+      str = object.randomlyGeneratedAlphabet;
+    }
+    dowloadAsMarkdown(object, str)
+   
   }
